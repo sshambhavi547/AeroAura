@@ -9,7 +9,9 @@ import 'screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.initialize();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
   runApp(const AeroAuraApp());
 }
 
@@ -20,15 +22,20 @@ class AeroAuraApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => WeatherProvider()),
-        ChangeNotifierProvider(create: (_) => HydrationProvider()),
+        ChangeNotifierProvider<WeatherProvider>(
+          create: (_) => WeatherProvider(),
+        ),
+        ChangeNotifierProvider<HydrationProvider>(
+          create: (_) => HydrationProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'AeroAura',
         debugShowCheckedModeBanner: false,
+        // Disable ink sparkle shader to fix Application Control block
         theme: ThemeData(
           useMaterial3: true,
-          fontFamily: 'Nunito',
+          splashFactory: NoSplash.splashFactory,
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xFF088395),
             brightness: Brightness.dark,

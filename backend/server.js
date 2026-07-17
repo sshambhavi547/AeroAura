@@ -27,7 +27,7 @@ app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
 });
 
-mongoose.connect(process.env.mongodb+srv://sshambhavi547_db_user:shubhi400@cluster0.qlepog4.mongodb.net/?appName=Cluster0)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
